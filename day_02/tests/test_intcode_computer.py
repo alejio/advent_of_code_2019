@@ -1,4 +1,4 @@
-from day_02.src.intcode_computer import load_input, add, multiply, halt, intcode_processor
+from day_02.src.program_alarm import load_input, add, multiply, halt, intcode_processor
 
 
 def test_load_input():

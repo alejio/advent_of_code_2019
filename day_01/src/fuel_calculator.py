@@ -30,7 +30,7 @@ def load_input() -> List[int]:
 
 @click.command()
 @click.option('--complex', default=None)
-def calculate_total_fuel(complex: Optional) -> int:
+def calculate_total_fuel(complex: Optional):
     module_masses = load_input()
     individual_modules_fuel = [module_fuel_calculator(mass, complex) for mass in module_masses]
     print(f"Total fuel required: {sum(individual_modules_fuel)}")
