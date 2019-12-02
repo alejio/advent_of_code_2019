@@ -31,19 +31,24 @@ def multiply(sequence: List[int], integer_list: List[int]) -> List[int]:
 def halt(sequence: List[int], integer_list: List[int]) -> List[int]:
     assert sequence[0] == 99
     assert len(sequence) == 1
+    return integer_list
 
 
 def intcode_processor(integer_list: List[int]) -> List[int]:
+    i = 0
+    while i < len(integer_list):
+        if integer_list[i] == operation_opcodes['addition']:
+            integer_list = add(integer_list[i:i+4], integer_list)
+            i += 4
+        elif integer_list[i] == operation_opcodes['multiplication']:
+            integer_list = multiply(integer_list[i:i+4], integer_list)
+            i += 4
+        elif integer_list[i] == operation_opcodes['halt']:
+            integer_list = halt(integer_list[i:i+1], integer_list)
+            return integer_list
+        else:
+            raise Exception('Invalid opcode: ', i)
     return integer_list
-#     processed_list = []
-#     for i in range(len(integer_list)):
-#         if i in halting_opcodes:
-#             return processed_list
-#         else
-#     if integer_list[0] not in valid_opcodes:
-#         raise Exception('Invalid starting opcode')
-#     else:
-
 
 
 def restore_1202_state():

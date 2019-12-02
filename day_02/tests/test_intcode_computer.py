@@ -11,7 +11,20 @@ def test_load_input():
 def test_add():
     integer_list = [1, 1, 1, 4, 99, 5, 6, 0, 99]
     sequence = integer_list[0:4]
-    add(sequence, integer_list) == [1, 1, 1, 4, 2, 5, 6, 0, 99]
+    assert add(sequence, integer_list) == [1, 1, 1, 4, 2, 5, 6, 0, 99]
+
+
+def test_multiply():
+    integer_list = [2, 4, 4, 5, 99, 0]
+    sequence = integer_list[0:4]
+    assert multiply(sequence, integer_list) == [2, 4, 4, 5, 99, 9801]
+
+
+def test_halt():
+    integer_list = [99, 4, 4, 5, 99, 0]
+    sequence = integer_list[0:1]
+    assert halt(sequence, integer_list) == integer_list
+
 
 def test_intcode_processor():
     case_1 = [[1, 0, 0, 0, 99], [2, 0, 0, 0, 99]]
