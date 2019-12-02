@@ -51,8 +51,18 @@ def intcode_processor(integer_list: List[int]) -> List[int]:
     return integer_list
 
 
-def restore_1202_state():
-    return
+def restore_1202_state(integer_list: List[int]) -> List[int]:
+    integer_list[1] = 12
+    integer_list[2] = 2
+    return integer_list
+
+
+@click.command()
+def position_0_value() -> int:
+    integer_list = load_input()
+    integer_list = restore_1202_state(integer_list)
+    print('Integer at position 0: ', intcode_processor(integer_list)[0])
+
 
 if __name__ == '__main__':
-    restore_1202_state()
+    position_0_value()
