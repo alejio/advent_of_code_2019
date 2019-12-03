@@ -72,15 +72,16 @@ def find_intersections(first_path: List, second_path: List) -> set:
     return set(first_path).intersection(set(second_path))
 
 
-@click.command()
-def find_closest_crossing():
+def answers():
     wire_1, wire_2 = load_input()
     path_1 = map_full_path(wire_1)
     path_2 = map_full_path(wire_2)
+    print(len(path_2))
     intersections = find_intersections(path_1, path_2)
     distances = [manhattan_distance((0, 0), i) for i in list(intersections)]
-    print(min([i for i in distances if i > 0]))
+    print('Closest crossing distance: ', min([i for i in distances if i > 0]))
+    print('Fewest combined steps: ', 1)
 
 
 if __name__ == "__main__":
-    find_closest_crossing()
+    answers()
