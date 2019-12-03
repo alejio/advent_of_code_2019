@@ -25,7 +25,7 @@ def test_manhattan_distance():
 
 def test_map_path():
     movements = ['R10', 'U11', 'D1', 'L10']
-    assert map_path(movements) == {(0,0), (0, 10), (11, 10), (10, 10), (10, 0)}
+    assert map_path(movements) == {(0, 10), (11, 10), (10, 10), (10, 0)}
 
 
 def test_find_intersections():

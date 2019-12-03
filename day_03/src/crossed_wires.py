@@ -36,7 +36,7 @@ def manhattan_distance(position_1: Tuple, position_2: Tuple) -> int:
 
 
 def map_path(movements: List[str], starting_position: Tuple=(0, 0)) -> set:
-    path = {starting_position}
+    path = set()
     position = starting_position
     for movement in movements:
         position = move(movement, position)
