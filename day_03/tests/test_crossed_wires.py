@@ -21,7 +21,11 @@ def test_move():
 
 def test_manhattan_distance():
     assert manhattan_distance((4, 2), (7, 1)) == 4
-
+    movements = ['R75','D30','R83','U83','L12','D49','R71','U7','L72', 'U62','R66','U55','R34','D71','R55','D58','R83']
+    position = (0, 0)
+    for movement in movements:
+        position = move(movement, position)
+    assert manhattan_distance(position, (0, 0)) == 159
 
 def test_map_path():
     movements = ['R10', 'U11', 'D1', 'L10']
