@@ -1,5 +1,5 @@
 from day_03.src.crossed_wires import load_input, move, manhattan_distance, \
-    map_path
+    map_path, find_intersections
 
 
 def test_load_input():
@@ -26,3 +26,9 @@ def test_manhattan_distance():
 def test_map_path():
     movements = ['R10', 'U11', 'D1', 'L10']
     assert map_path(movements) == {(0,0), (0, 10), (11, 10), (10, 10), (10, 0)}
+
+
+def test_find_intersections():
+    path_1 = {(1, 3), (2, 4), (16, 6)}
+    path_2 = {(1, 3), (1, 4), (6, 16)}
+    find_intersections(path_1, path_2) == {(1, 3)}
