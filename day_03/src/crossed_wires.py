@@ -93,8 +93,9 @@ def answers():
     path_1 = map_full_path(wire_1)
     path_2 = map_full_path(wire_2)
     intersections = find_intersections(path_1, path_2)
-    for intersection in intersections:
-        total_steps.append(n_steps_to_intersection(path_1, intersection) + n_steps_to_intersection(path_2, intersection))
+    total_steps = [n_steps_to_intersection(path_1,
+                                           intersection) + n_steps_to_intersection(
+        path_2, intersection) for intersection in list(intersections)]
     print('Fewest combined steps: ', min(total_steps))
 
 

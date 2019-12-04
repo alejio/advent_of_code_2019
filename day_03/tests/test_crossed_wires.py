@@ -1,5 +1,5 @@
 from day_03.src.crossed_wires import load_input, move, manhattan_distance, \
-    find_intersections, single_move_map, map_full_path, intersection_distances
+    find_intersections, single_move_map, map_full_path, intersection_distances, n_steps_to_intersection
 
 
 def test_load_input():
@@ -52,6 +52,26 @@ def test_nearest_crossing():
     assert min(distances) == 135
 
 
+def test_steps_to_intersection_case_1():
+    wire_1 = ['R75','D30', 'R83', 'U83', 'L12', 'D49', 'R71', 'U7', 'L72']
+    wire_2 = ['U62','R66','U55','R34','D71','R55','D58','R83']
+    path_1 = map_full_path(wire_1)
+    path_2 = map_full_path(wire_2)
+    intersections = find_intersections(path_1, path_2)
+    total_steps = [n_steps_to_intersection(path_1, intersection) + n_steps_to_intersection(path_2, intersection)for intersection in list(intersections)]
+    assert min(total_steps) == 610
+
+
+def test_steps_to_intersection_case_2():
+    wire_1 = ['R98','U47','R26','D63','R33','U87','L62','D20','R33','U53','R51']
+    wire_2 = ['U98','R91','D20','R16','D67','R40','U7','R15','U6','R7']
+    path_1 = map_full_path(wire_1)
+    path_2 = map_full_path(wire_2)
+    intersections = find_intersections(path_1, path_2)
+    total_steps = [n_steps_to_intersection(path_1,
+                                           intersection) + n_steps_to_intersection(
+        path_2, intersection) for intersection in list(intersections)]
+    assert min(total_steps) == 410
 
     # position_1 = (0, 0)
     # movements_2 = ['R98', 'U47', 'R26', 'D63', 'R33', 'U87', 'L62', 'D20',
