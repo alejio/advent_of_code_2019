@@ -78,14 +78,21 @@ def n_steps_to_intersection(path: List, intersection: Tuple) -> int:
     return path.index(intersection)
 
 
+def intersection_distances(movement_1: List, movement_2: List) -> List:
+    path_1 = map_full_path(movement_1)
+    path_2 = map_full_path(movement_2)
+    intersections = find_intersections(path_1, path_2)
+    return [manhattan_distance((0, 0), i) for i in list(intersections)]
+
+
 def answers():
     wire_1, wire_2 = load_input()
+    distances = intersection_distances(wire_1, wire_2)
+    print('Closest crossing distance: ', min(distances))
+    total_steps = []
     path_1 = map_full_path(wire_1)
     path_2 = map_full_path(wire_2)
     intersections = find_intersections(path_1, path_2)
-    distances = [manhattan_distance((0, 0), i) for i in list(intersections)]
-    print('Closest crossing distance: ', min(distances))
-    total_steps = []
     for intersection in intersections:
         total_steps.append(n_steps_to_intersection(path_1, intersection) + n_steps_to_intersection(path_2, intersection))
     print('Fewest combined steps: ', min(total_steps))
