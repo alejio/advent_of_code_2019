@@ -72,6 +72,10 @@ def find_intersections(first_path: List, second_path: List) -> set:
     return set(first_path).intersection(set(second_path))
 
 
+def n_steps_to_intersection(path: List, intersection: Tuple) -> int:
+    return path.index(intersection)
+
+
 def answers():
     wire_1, wire_2 = load_input()
     path_1 = map_full_path(wire_1)
@@ -80,7 +84,11 @@ def answers():
     intersections = find_intersections(path_1, path_2)
     distances = [manhattan_distance((0, 0), i) for i in list(intersections)]
     print('Closest crossing distance: ', min([i for i in distances if i > 0]))
-    print('Fewest combined steps: ', 1)
+    total_steps = []
+    for intersection in intersections:
+        if intersection != (0, 0):
+            total_steps.append(n_steps_to_intersection(path_1, intersection) + n_steps_to_intersection(path_2, intersection))
+    print('Fewest combined steps: ', min(total_steps))
 
 
 if __name__ == "__main__":
