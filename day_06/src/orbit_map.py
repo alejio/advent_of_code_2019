@@ -24,7 +24,11 @@ def create_graph() -> Dict[str, List[str]]:
             graph[pair[0]] = value.append(pair[1])
         else:
             graph[pair[0]] = pair[1:]
-    return graph
+    new_graph = {}
+    for key, value in graph.items():
+        if value is not None:
+            new_graph[key] = value
+    return new_graph
 
 
 def find_all_paths(graph: Dict[str, List[str]], start: str, end: str, path: List=[]) -> List:
@@ -44,20 +48,24 @@ def find_all_paths(graph: Dict[str, List[str]], start: str, end: str, path: List
 
 
 def max_distance(paths: List) -> int:
-    for path in paths:
-        if len(path) > 0:
-            return len(path) - 1
-        else:
-            return 0
+    if len(paths) > 0:
+        for path in paths:
+            if len(path) > 0:
+                return len(path)
+            else:
+                return 0
+    return 0
 
 
 @click.command()
 def total_orbits():
-    graph = create_graph(load_input())
+    graph = create_graph()
     total_distance = 0
-    for node in graph:
-        paths = find_all_paths(graph, 'COM', node)
-        total_distance += max_distance(paths)
+    for node_1 in graph:
+        for node_2 in graph:
+            if node_1 != node_2:
+                paths = find_all_paths(graph, node_1, node_2)
+                total_distance += max_distance(paths)
     print(total_distance)
     return total_distance
 
