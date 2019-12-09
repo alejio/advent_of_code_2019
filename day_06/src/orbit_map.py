@@ -83,7 +83,7 @@ def total_orbits(part: int=2):
                 total_distance += max_distance(paths)
         print(total_distance)
     else:
-        shortest_path = find_shortest_path(graph, 'SAN', 'YOU')
+        shortest_path = find_shortest_path(graph, 'YOU', 'SAN')
         print(len(shortest_path))
 
 
