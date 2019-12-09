@@ -7,7 +7,7 @@ def test_load_input():
 
 def test_create_graph():
     graph = create_graph()
-    assert len(graph.keys()) == 2095
+    assert len(graph.keys()) == 2349
 
 
 def test_find_all_paths_case1():
@@ -43,6 +43,6 @@ def test_max_distance_case2():
 
 def test_integration():
     graph = create_graph()
-    paths = find_all_paths(graph, 'COM', 'XC8')
+    paths = find_all_paths(graph, 'COM', '62T')
     assert len(paths) == 1
-    assert max_distance(paths) == 2
+    assert max_distance(paths) == 3
