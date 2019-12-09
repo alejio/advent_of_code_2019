@@ -13,8 +13,7 @@ def load_input() -> List[int]:
         return [i[0] for i in list(reader)]
 
 
-def all_nodes() -> List:
-    data = load_input()
+def all_nodes(data: List) -> List:
     nodes = set()
     for item in data:
         pair = item.split(')')
@@ -23,10 +22,9 @@ def all_nodes() -> List:
     return nodes
 
 
-def create_graph() -> Dict[str, List[str]]:
-    all_orbits = load_input()
+def create_graph(data: List) -> Dict[str, List[str]]:
     graph = {}
-    for orbit in all_orbits:
+    for orbit in data:
         pair = orbit.split(')')
         assert len(pair) == 2, 'Failed graph creation: corrupt data!'
         if pair[0] in graph.keys():
@@ -64,17 +62,29 @@ def max_distance(paths: List) -> int:
     return 0
 
 
+def find_shortest_path(graph: Dict, node_1: str, node_2: str) -> set:
+    node_1_path = find_all_paths(graph, 'COM', node_1)[0]
+    node_2_path = find_all_paths(graph, 'COM', node_2)[0]
+    common_path = [i for i, j in zip(node_1_path, node_2_path) if i == j]
+    steps_1 = set(node_1_path) - set(common_path)
+    return steps_1
+
+
 @click.command()
-def total_orbits():
-    nodes = list(all_nodes())
-    graph = create_graph()
-    total_distance = 0
-    for node_1 in nodes:
-        if node_1 != 'COM':
-            paths = find_all_paths(graph, 'COM', node_1)
-            total_distance += max_distance(paths)
-    print(total_distance)
-    return total_distance
+def total_orbits(part: int=2):
+    data = load_input()
+    nodes = list(all_nodes(data))
+    graph = create_graph(data)
+    if part == 1:
+        total_distance = 0
+        for node_1 in nodes:
+            if node_1 != 'COM':
+                paths = find_all_paths(graph, 'COM', node_1)
+                total_distance += max_distance(paths)
+        print(total_distance)
+    else:
+        shortest_path = find_shortest_path(graph, 'SAN', 'YOU')
+        print(len(shortest_path))
 
 
 if __name__ == '__main__':
