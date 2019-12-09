@@ -1,4 +1,5 @@
-from day_06.src.orbit_map import load_input, create_graph, find_all_paths, max_distance, find_shortest_path
+from day_06.src.orbit_map import load_input, create_graph, find_all_paths, max_distance, \
+    find_shortest_path_len
 
 
 def test_load_input():
@@ -60,5 +61,5 @@ def test_integration_part_2():
     #         ['I', 'SAN']]
     data = ['COM)B', 'B)C', 'C)D', 'D)E', 'E)F', 'B)G', 'G)H', 'D)I', 'E)J', 'J)K', 'K)L', 'K)YOU', 'I)SAN']
     graph = create_graph(data)
-    shortest_path = find_shortest_path(graph, 'YOU', 'SAN')
-    assert len(shortest_path) == 4
+    shortest_path = find_shortest_path_len(graph, 'YOU', 'SAN')
+    assert shortest_path == 4

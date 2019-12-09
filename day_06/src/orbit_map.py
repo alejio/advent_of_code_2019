@@ -62,12 +62,13 @@ def max_distance(paths: List) -> int:
     return 0
 
 
-def find_shortest_path(graph: Dict, node_1: str, node_2: str) -> set:
+def find_shortest_path_len(graph: Dict, node_1: str, node_2: str) -> int:
     node_1_path = find_all_paths(graph, 'COM', node_1)[0]
     node_2_path = find_all_paths(graph, 'COM', node_2)[0]
     common_path = [i for i, j in zip(node_1_path, node_2_path) if i == j]
     steps_1 = set(node_1_path) - set(common_path)
-    return steps_1
+    steps_2 = set(node_2_path) - set(common_path)
+    return len(steps_1) + len(steps_2) - 2
 
 
 @click.command()
@@ -83,8 +84,8 @@ def total_orbits(part: int=2):
                 total_distance += max_distance(paths)
         print(total_distance)
     else:
-        shortest_path = find_shortest_path(graph, 'YOU', 'SAN')
-        print(len(shortest_path))
+        shortest_path = find_shortest_path_len(graph, 'YOU', 'SAN')
+        print(shortest_path)
 
 
 if __name__ == '__main__':
