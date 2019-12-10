@@ -70,6 +70,7 @@ def print_image(image: List):
                 stringy_line += str(digit)
         print(stringy_line)
 
+
 @click.command()
 def calculation(part: int=2):
     data = load_input()
