@@ -64,7 +64,10 @@ def print_image(image: List):
     for line in image:
         stringy_line = ''
         for digit in line:
-            stringy_line += str(digit)
+            if digit == 0:
+                stringy_line += ' '
+            else:
+                stringy_line += str(digit)
         print(stringy_line)
 
 @click.command()
