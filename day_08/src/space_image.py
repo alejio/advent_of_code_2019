@@ -24,7 +24,9 @@ def create_image(data: List, dim_x: int, dim_y: int) -> List:
     n_layers = int(len(data) / (dim_x * dim_y))
     for n_layer in range(n_layers):
         layer_data = data[n_layer*layer_size:n_layer*layer_size + layer_size]
-        layer = [layer_data[0: dim_x], layer_data[dim_x:]]
+        layer = []
+        for j in range(dim_y):
+            layer.append(layer_data[j * dim_x: j * dim_x + dim_x])
         output.append(layer)
     return output
 
@@ -42,14 +44,41 @@ def find_fewest_zeros_layer(image: List) -> List:
     return min(zeros, key=zeros.get)
 
 
+def layer_stack(image: List) -> List:
+    dim_x = len(image[0][0])
+    dim_y = len(image[0])
+    n_layers = len(image)
+    final_image = []
+    for j in range(dim_y):
+        final_image.append([])
+        for i in range(dim_x):
+            for n in range(n_layers):
+                pixel = image[n][j][i]
+                if pixel != 2:
+                    final_image[j].append(pixel)
+                    break
+    return final_image
+
+
+def print_image(image: List):
+    for line in image:
+        stringy_line = ''
+        for digit in line:
+            stringy_line += str(digit)
+        print(stringy_line)
+
 @click.command()
-def calculation():
+def calculation(part: int=2):
     data = load_input()
     image = create_image(data, 25, 6)
-    layer_idx = find_fewest_zeros_layer(image)
-    number_of_1s = count_digits_in_layer(image[layer_idx], 1)
-    number_of_2s = count_digits_in_layer(image[layer_idx], 2)
-    print(number_of_1s * number_of_2s)
+    if part == 1:
+        layer_idx = find_fewest_zeros_layer(image)
+        number_of_1s = count_digits_in_layer(image[layer_idx], 1)
+        number_of_2s = count_digits_in_layer(image[layer_idx], 2)
+        print(number_of_1s * number_of_2s)
+    else:
+        final_image = layer_stack(image)
+        print_image(final_image)
 
 
 if __name__ == '__main__':
